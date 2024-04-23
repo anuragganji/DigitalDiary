@@ -1,0 +1,9 @@
+<p>Welcome {{username}}</p>
+<div class="grid-container">
+    <div class="grid-item" *ngFor="let feature of features">
+      <div (click)="switchPage()" class="card">
+        <!-- Your card content here -->
+        {{ feature.feature }}
+      </div>
+    </div>
+  </div>

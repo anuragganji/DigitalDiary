@@ -1,0 +1,8 @@
+<button (click)="getChildRecord()" class="btn btn-success" mat-raised-button color="primary">Fetch Yesterday's Entry</button>
+<br>
+<br>
+<div class="container">
+    <div *ngIf="childEntry" class="card">
+        <p>{{childEntry}}</p>
+    </div>
+</div>
