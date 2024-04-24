@@ -19,10 +19,10 @@ export class HomeComponent implements OnInit{
 
   username = ""
   features = [
-    {feature: 'View Old Entries'},
-    {feature: 'Record Entry'},
-    {feature: 'Parental Entries'},
-    {feature: 'Collaboration'}
+    {name: 'View Old Entries',url:"history"},
+    {name: 'Record Entry',url:"record"},
+    {name: 'Parental Entries',url:"parent"},
+    {name: 'Collaboration',url:"collab"}
   ]
 
   constructor(private route:ActivatedRoute, private authenticationService: AuthenticationService, private router: Router){

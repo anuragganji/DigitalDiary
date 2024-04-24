@@ -1,3 +1,12 @@
 .btn{
     cursor: pointer;
+    margin-top: 2%;
+}
+.entry{
+    margin-top: 5%;
+    padding-top: 1%;
+}
+.alert-warning{
+    max-width: fit-content;
+    margin-top: 3%;
 }

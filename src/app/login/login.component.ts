@@ -8,7 +8,7 @@ import { AuthenticationService } from '../service/authentication.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule,NgIf],
+  imports: [FormsModule,NgIf,],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

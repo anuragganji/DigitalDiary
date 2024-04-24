@@ -15,6 +15,7 @@ import { NgIf } from '@angular/common';
 })
 export class ParentPageComponent implements OnInit{
   childEntry: string ='';
+  errorMessage: string = ''
   constructor(private authenticationService: AuthenticationService, private router: Router, private childDataService: ChildDataService){
 
   }
@@ -33,10 +34,12 @@ export class ParentPageComponent implements OnInit{
 
   handleSuccessfullResponse(data: ChildEntryBean){
     console.log(data)
-    this.childEntry = data.message
+    this.errorMessage='';
+    this.childEntry = data.content
     console.log(this.childEntry)
   }
   handleErrorResponse(error: any){
-      this.childEntry=error.error.message
+    this.childEntry='';
+      this.errorMessage=error.error.message
   }
 }

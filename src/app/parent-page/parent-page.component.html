@@ -1,8 +1,12 @@
 <button (click)="getChildRecord()" class="btn btn-success" mat-raised-button color="primary">Fetch Yesterday's Entry</button>
 <br>
 <br>
+
+
+<div class="alert alert-warning" *ngIf="errorMessage">{{errorMessage}}</div>
 <div class="container">
-    <div *ngIf="childEntry" class="card">
+    <div *ngIf="childEntry" class="card container entry">
+
         <p>{{childEntry}}</p>
     </div>
 </div>
