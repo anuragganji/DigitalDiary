@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { ChildDataService } from './service/data/child-data.service';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {

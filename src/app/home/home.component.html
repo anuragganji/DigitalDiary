@@ -1,7 +1,7 @@
 <p>Welcome {{username}}</p>
 <div class="grid-container">
-    <div class="grid-item" *ngFor="let feature of features">
-      <div (click)="switchPage()" class="card">
+    <div class="grid-item" *ngFor="let feature of features" (click)="switchPage(feature)">
+      <div  class="card">
         <!-- Your card content here -->
         {{ feature.name }}
       </div>

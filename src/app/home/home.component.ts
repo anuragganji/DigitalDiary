@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit{
       this.router.navigate(['login'])
     }
   }
-  switchPage(){
-    this.router.navigate(['parent'])
+  switchPage(item: any){
+    this.router.navigate([item.url])
   }
 }

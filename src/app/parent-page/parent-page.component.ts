@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { ChildDataService, ChildEntryBean } from '../service/data/child-data.service';
 import { NgIf } from '@angular/common';
+import { EntryBean, EntryDataService } from '../service/data/entry-data.service';
 @Component({
   selector: 'app-parent-page',
   standalone: true,
@@ -16,7 +16,7 @@ import { NgIf } from '@angular/common';
 export class ParentPageComponent implements OnInit{
   childEntry: string ='';
   errorMessage: string = ''
-  constructor(private authenticationService: AuthenticationService, private router: Router, private childDataService: ChildDataService){
+  constructor(private authenticationService: AuthenticationService, private router: Router, private entryDataService: EntryDataService){
 
   }
   ngOnInit(): void {
@@ -26,13 +26,13 @@ export class ParentPageComponent implements OnInit{
   }
   getChildRecord(){
     let username = sessionStorage.getItem('authenticatedUser')
-    this.childDataService.executeParentDataService(username).subscribe(
+    this.entryDataService.executeParentDataService(username).subscribe(
       response=>this.handleSuccessfullResponse(response),
       error =>this.handleErrorResponse(error)
     );
   }
 
-  handleSuccessfullResponse(data: ChildEntryBean){
+  handleSuccessfullResponse(data: EntryBean){
     console.log(data)
     this.errorMessage='';
     this.childEntry = data.content
