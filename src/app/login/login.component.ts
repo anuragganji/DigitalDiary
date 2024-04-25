@@ -14,8 +14,8 @@ import { AuthenticationService } from '../service/authentication.service';
 })
 export class LoginComponent {
 
-  username ='anurags'
-  password='anu'
+  username ='keshav'
+  password='kes'
   invalidLogin = false
 
   constructor(private router: Router, private authenticationService: AuthenticationService){

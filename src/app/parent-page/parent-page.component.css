@@ -2,11 +2,26 @@
     cursor: pointer;
     margin-top: 2%;
 }
-.entry{
-    margin-top: 5%;
-    padding-top: 1%;
-}
+
 .alert-warning{
     max-width: fit-content;
-    margin-top: 3%;
+    margin: 5px 5px 5px 5px;
 }
+.card {
+    /* Your existing card styles */
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .entry{
+    margin-top: 5%;
+    background-color: #e6e3e3;
+    padding-bottom: 0%;
+}
+  .elevated {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+  }
+  .error-width {
+    width: fit-content;
+    padding: 10px 10px 10px 10px;
+  }

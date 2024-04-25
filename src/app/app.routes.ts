@@ -13,6 +13,6 @@ export const routes: Routes = [
     {path:'home', component: HomeComponent},
     {path:'parent', component: ParentPageComponent},
     {path:'record', component: RecordComponent},
-    {path:'histtory', component: HistoryComponent},
+    {path:'history', component: HistoryComponent},
     {path:'**', component: ErrorComponent}
 ];

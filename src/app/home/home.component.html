@@ -1,7 +1,15 @@
-<p>Welcome {{username}}</p>
+<h1 *ngIf="userBean">Welcome {{userBean.username.toUpperCase()}} :;</h1>
+
+<div style="text-align: center;">
+  <h1>
+    Select a feature to explore!!!
+  </h1>
+  <br>
+</div>
+
 <div class="grid-container">
     <div class="grid-item" *ngFor="let feature of features" (click)="switchPage(feature)">
-      <div  class="card">
+      <div  class="card elevated">
         <!-- Your card content here -->
         {{ feature.name }}
       </div>

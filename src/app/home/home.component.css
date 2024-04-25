@@ -8,6 +8,9 @@
     width: 100%;
   }
   
+  .elevated {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+  }
 
   .card{
     background-color: #f0f0f0; /* Light grey color */

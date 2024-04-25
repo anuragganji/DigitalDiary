@@ -1,1 +1,41 @@
-<p>history works!</p>
+<mat-slide-toggle [(ngModel)]="isChecked">Slide Toggle Checked: {{isChecked}}</mat-slide-toggle>
+
+<h1>{{isSubscribedToEmailsMessage}}</h1>
+<div *ngIf="entryBean">
+    
+
+    <button (click)="getUserRecords()" class="btn btn-success" mat-raised-button color="primary">Refresh</button>
+
+    <div *ngIf="entryBean">
+        <div class="card-container">
+        <div class="card container entry elevated" *ngFor="let entry of entryBean | slice: (paginator.pageIndex * paginator.pageSize):((paginator.pageIndex + 1) * paginator.pageSize)">
+            <!-- Your card content here -->
+            <p>{{entry.content}}</p>
+            <div class="date-wrapper">
+            <div>
+                <nav class="navbar navbar-expand-md ">
+                <ul class="navbar-nav">
+                    <li><p>By {{entry.userId.firstName}} {{entry.userId.lastName}}</p></li>
+                </ul>
+                <ul class="navbar-nav navbar-collapse justify-content-end">
+                    <li><p class="para-right">{{entry.userId.email}} | {{entry.entryDate | date:'dd-MMM-yyyy'}}</p></li>
+                </ul>
+                </nav>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="over-flow">
+            <mat-paginator [length]="entryBean.length"
+                        [pageSize]="10"
+                        [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                        aria-label="Select page"
+                        #paginator>
+            </mat-paginator>
+        </div>
+    </div>
+</div>
+<div *ngIf="entryBean">
+
+
+</div>

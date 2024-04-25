@@ -2,11 +2,29 @@
 <br>
 <br>
 
-
-<div class="alert alert-warning" *ngIf="errorMessage">{{errorMessage}}</div>
+<div *ngIf="errorMessage" class="card elevated error-width">
+    <div class="alert alert-warning elevated" >{{errorMessage}}</div>
+</div>
 <div class="container">
-    <div *ngIf="childEntry" class="card container entry">
+    <div *ngIf="childEntry" class="card container entry elevated">
 
-        <p>{{childEntry}}</p>
+        <p>{{childEntry.content}}</p>
+        <div class="date-wrapper">
+            
+            
+            <div>
+                <nav class="navbar navbar-expand-md ">
+                
+                    <ul class="navbar-nav">
+                        <li><p>By {{childEntry.userId.firstName}} {{childEntry.userId.lastName}}</p></li>
+
+
+                    </ul>
+                    <ul class="navbar-nav navbar-collapse justify-content-end">
+                        <li><p class="para-right">{{childEntry.userId.email}} | {{childEntry.entryDate | date:'dd-MMM-yyyy'}}</p></li>
+                    </ul>
+            </nav>
+            </div>
+        </div>
     </div>
 </div>
