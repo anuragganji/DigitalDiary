@@ -47,9 +47,16 @@ export class MenuComponent implements OnInit{
       error=>this.handleErrorAllUsers(error)
     );
   }
+  switchPage(path:string){
+    this.router.navigate([path])
+  }
+  login(){
+    this.switchPage('login')
+  }
+  
   logout(){
     sessionStorage.removeItem('authenticatedUser')
-    this.router.navigate(['login'])
+    this.switchPage('login')
   }
 
   setParent(userRelationBean: UserRelationBean){

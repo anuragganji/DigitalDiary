@@ -24,4 +24,8 @@ export class EntryDataService {
   executeUserRecordsService(username: any){
     return this.http.get<EntryBean[]>(`http://localhost:8080/entry/${username}`)
   }
+  executeUserRecordByDateService(username: string, date: string){
+    return this.http.get<EntryBean>(`http://localhost:8080/entry/${username}/${date}`)
+  }
+
 }

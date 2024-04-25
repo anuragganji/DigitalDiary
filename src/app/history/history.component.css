@@ -17,6 +17,10 @@
     padding-bottom: 0%;
     background-color: #e6e3e3;
 }
+.toggle{
+    display: flex;
+    justify-content: flex-end;
+}
   
   .elevated {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
@@ -25,4 +29,8 @@
     margin-bottom: 100px;
     padding-bottom: 60px;
     padding-top: 2%;
+  }
+  .error-width {
+    width: fit-content;
+    padding: 10px 10px 10px 10px;
   }

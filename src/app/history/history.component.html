@@ -1,7 +1,44 @@
-<mat-slide-toggle [(ngModel)]="isChecked">Slide Toggle Checked: {{isChecked}}</mat-slide-toggle>
+<div class="container toggle">
+    <mat-slide-toggle [(ngModel)]="isChecked"><p style="padding-top: 14%;"><b> |  Choose Date Picker {{isChecked}}</b></p></mat-slide-toggle>
+</div>
+<div *ngIf="isChecked">
+<mat-form-field>
+    <mat-label>Date Picker</mat-label>
+    <input matInput [matDatepicker]="dp" (dateChange)="onDateSelected($event)" [formControl]="date1">
+    <mat-hint>MMMM DD, YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp></mat-datepicker>
+    
+  </mat-form-field>
+  <div *ngIf="errorMessage" class="card elevated error-width">
+    <div class="alert alert-warning elevated" >{{errorMessage}}</div>
+</div>
+<div class="container">
+    <div *ngIf="entryBeanDate" class="card container entry elevated">
 
-<h1>{{isSubscribedToEmailsMessage}}</h1>
-<div *ngIf="entryBean">
+        <p>{{entryBeanDate.content}}</p>
+        <div class="date-wrapper">
+            
+            
+            <div>
+                <nav class="navbar navbar-expand-md ">
+                
+                    <ul class="navbar-nav">
+                        <li><p>By {{entryBeanDate.userId.firstName}} {{entryBeanDate.userId.lastName}}</p></li>
+
+
+                    </ul>
+                    <ul class="navbar-nav navbar-collapse justify-content-end">
+                        <li><p class="para-right">{{entryBeanDate.userId.email}} | {{entryBeanDate.entryDate | date:'dd-MMM-yyyy'}}</p></li>
+                    </ul>
+            </nav>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div *ngIf="!isChecked">
     
 
     <button (click)="getUserRecords()" class="btn btn-success" mat-raised-button color="primary">Refresh</button>
