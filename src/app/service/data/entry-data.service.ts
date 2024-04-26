@@ -4,10 +4,11 @@ import { UserBean } from './user-data.service';
 
 export class EntryBean{
   constructor(
-    public entryId: number,
     public content: string,
     public entryDate: Date,
-    public userId: UserBean){}
+    public userId: UserBean,
+    public entryId?: number
+  ){}
 }
 @Injectable({
   providedIn: 'root'

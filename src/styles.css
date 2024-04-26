@@ -1,6 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css);
 
+
+
+:root {
+    --custom-primary-color: #3f51b5; /* Example primary color */
+    --custom-accent-color: #e91e63; /* Example accent color */
+  }
+  
+  /* Override Angular Material theme styles */
+  .mat-datepicker-content {
+    background-color: var(--custom-primary-color); /* Change background color */
+  }
+  
+  .mat-datepicker-calendar-body-cell.mat-calendar-body-selected {
+    background-color: var(--custom-accent-color); /* Change selected date background color */
+  }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 

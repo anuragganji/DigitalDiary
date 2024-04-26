@@ -74,14 +74,14 @@ export class HistoryComponent implements OnInit{
     console.log(selectedDate)
    
     this.entryDataService.executeUserRecordByDateService(this.username as string,selectedDate).subscribe(response=>this.handleSuccessfullResponseByDate(response),
-    error =>this.handleErrorResponse(error))
+    error =>this.handleErrorResponse(error,this.entryBeanDate))
 
   }
 
   getUserRecords(){
     console.log(this.username)
     this.entryDataService.executeUserRecordsService(this.username).subscribe(response=>this.handleSuccessfullResponse(response),
-    error =>this.handleErrorResponse(error))
+    error =>this.handleErrorResponse(error,this.entryBean))
   }
   
   ngOnInit(): void {
@@ -115,9 +115,9 @@ export class HistoryComponent implements OnInit{
     console.log(this.entryBean)
   }
 
-  handleErrorResponse(error:any){
+  handleErrorResponse(error:any, item: any){
 
-    this.entryBean = []
+    item = undefined
     this.errorMessage=error.error.message
 
   }

@@ -23,7 +23,7 @@
 }
   
   .elevated {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adjust the values as needed */
   }
   .over-flow{
     margin-bottom: 100px;
@@ -32,5 +32,9 @@
   }
   .error-width {
     width: fit-content;
+    margin-top: 5%;
     padding: 10px 10px 10px 10px;
+  }
+  .alert {
+    margin:0%;
   }

@@ -1,11 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { UserBean, UserDataService, UserRelationBean } from '../service/data/user-data.service';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     RouterLink,
     NgIf,
     NgFor,
-    FormsModule
+    FormsModule,
+
   ],
   templateUrl: './menu.component.html',
   styleUrl: 
@@ -24,29 +38,21 @@ import { FormsModule } from '@angular/forms';
 export class MenuComponent implements OnInit{
   constructor(public authenticationService: AuthenticationService,
     private router:Router,
-    private userDataService: UserDataService
+    public dialog: MatDialog,
+    private userDataService: UserDataService,
+    private snackBar: MatSnackBar
   ){}
 
-  searchTerm: string = '';
-  private users: UserBean[] = []
   public errorMessage: string = '' 
-  public selectedParent: string = ''
+  private selectedParent=''
 
-  get filteredList(): UserBean[] {
-    if (!this.users) {
-      return [];
-    }
-    return this.users.filter(user =>
-      user.username && user.username.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
+
 
   ngOnInit(): void {
-    this.userDataService.executeGetAllUsers().subscribe(
-      response=>this.handleSuccessfullResponseAllUsers(response),
-      error=>this.handleErrorAllUsers(error)
-    );
   }
+
+
+
   switchPage(path:string){
     this.router.navigate([path])
   }
@@ -58,18 +64,104 @@ export class MenuComponent implements OnInit{
     sessionStorage.removeItem('authenticatedUser')
     this.switchPage('login')
   }
+  setParent(username: string){
+    console.log(username)
+    this.selectedParent = username
+    let child = sessionStorage.getItem('authenticatedUser')
+    let parentUser:UserBean
+    this.userDataService.executeGetUser(this.selectedParent).subscribe(response=> {
+      parentUser = response; 
+      this.userDataService.executeSetParentDataService(child as string, parentUser).subscribe(response => {
+        const message:string = "Parent access given to "+ parentUser.firstName.toUpperCase();
+        this.snackBar.open(message,"Done");
+      });
+  });
+}
 
-  setParent(userRelationBean: UserRelationBean){
-    this.userDataService.executeSetParentDataService(userRelationBean)
-    
+  selectParent(){
+    const dialogRef = this.dialog.open(SetParentDialog, {
+
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result)
+      this.selectedParent = result;
+      this.setParent((this.selectedParent))
+
+    });
+  }
+  
+  
+
+}
+@Component({
+  selector: 'set-parent-dialog',
+  templateUrl: 'set-parent-dialog.html',
+  standalone: true,
+  imports:[
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatInputModule,
+    MatAutocompleteModule,
+    AsyncPipe,
+    NgFor
+  ]
+})
+export class SetParentDialog implements OnInit{
+  constructor(
+    public dialogRef: MatDialogRef<SetParentDialog>,
+    private userDataService: UserDataService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {}
+  ngOnInit(): void {
+    this.userDataService.executeGetAllUsers().subscribe(
+      response=>this.handleSuccessfullResponseAllUsers(response),
+      error=>this.handleErrorAllUsers(error)
+    );
+  }
+
+  myControl = new FormControl('');
+
+  public selectedParent: string = ''
+  private users: string[] = []
+  public searchTerm: string = '';
+
+  public errorMessage: string = '' 
+
+  get filteredList(): string[] {
+    if (!this.users) {
+      return [];
+    }
+    return this.users.filter(user =>
+      user && user.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  setParentUser(user: string){
+    this.selectedParent = user
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
   handleSuccessfullResponseAllUsers(data: UserBean[]){
     console.log(data)
-    this.users = data
+    this.users = data.map(user=>user.username)
+
     console.log(this.users)
   }
   handleErrorAllUsers(error: any){
-      this.errorMessage = error.error.message
-  }
-
+    this.errorMessage = error.error.message
+}
 }

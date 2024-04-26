@@ -9,26 +9,12 @@
         </ul> -->
 
         <ul class="navbar-nav navbar-collapse justify-content-end">
-            <li><button mat-flat-button color="green">Set Parent</button></li>
+            <li class="menu-item" ><button (click)="selectParent()" mat-flat-button color="">Set Parent</button></li>
                 <li><a (click)="login()" *ngIf="!authenticationService.isUserLoggedIn()" class="nav-link"><button mat-raised-button color="warn">Login</button></a></li>
                 <li><a (click)="logout()" *ngIf="authenticationService.isUserLoggedIn()" class="nav-link"><button mat-raised-button color="primary" [style.color]="'white'">Logout</button></a></li>
         </ul>
     </nav>
-    <div>
-        <label>Search username</label>
-        <input type="text" [(ngModel)]="searchTerm" placeholder="">
-        <div *ngIf="searchTerm">
-            <ul>
-
-            <li *ngFor="let item of filteredList">
-                <div>
-                   <p>{{ item.username }}</p> 
-                </div>
-            </li>
-            </ul>
-        </div>
-        
-    </div>
+    
     
 </header>
 <br>

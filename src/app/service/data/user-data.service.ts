@@ -11,7 +11,7 @@ export class UserBean{
     public email: string
   ){}
 }
-export class userCredBean{
+export class UserCredBean{
   constructor(
     public userCredId: number,
     public userId: UserBean,
@@ -36,14 +36,16 @@ export class UserDataService {
 
   constructor(public http:HttpClient) { }
 
-  executeSetParentDataService(userRelationBean: UserRelationBean){
-    return this.http.post<UserRelationBean>(`http://localhost:8080/user_relation`,userRelationBean)
+  executeSetParentDataService(child:string, parent:UserBean){
+    
+    return this.http.post<UserRelationBean>(`http://localhost:8080/parent/set/${child}`,parent)
   }
+
 
   executeGetAllUsers(){
     return this.http.get<UserBean[]>(`http://localhost:8080/user/all`)
   }
-  executeGetUser(username: any){
+  executeGetUser(username: string){
     return this.http.get<UserBean>(`http://localhost:8080/user/${username}`)
   }
 }

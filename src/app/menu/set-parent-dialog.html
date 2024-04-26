@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Set Parent</h2>
+
+<mat-dialog-content>
+  <p>Give parent access</p>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>User</mat-label>
+        <input [(ngModel)]="searchTerm" type="text"
+                placeholder="Search"
+                aria-label="Number"
+                matInput
+                [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            
+          <div *ngFor="let user of filteredList">
+            <mat-option (click)="setParentUser(user)" [value]="user">{{user}}</mat-option>
+            
+          </div>
+            
+        </mat-autocomplete>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="selectedParent" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

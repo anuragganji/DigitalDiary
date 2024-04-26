@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit{
     }
 
     let username = sessionStorage.getItem('authenticatedUser')
-    this.userDataService.executeGetUser(username).subscribe(
+    this.userDataService.executeGetUser(username as string).subscribe(
       response =>this.handleSuccessfullResponse(response),
       error=>this.handleErrorResponse(error)
     );

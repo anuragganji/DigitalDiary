@@ -1,7 +1,8 @@
 <div class="container toggle">
-    <mat-slide-toggle [(ngModel)]="isChecked"><p style="padding-top: 14%;"><b> |  Choose Date Picker {{isChecked}}</b></p></mat-slide-toggle>
+    <mat-slide-toggle class="mat-datepicker-toggle-button" [(ngModel)]="isChecked"><p style="padding-top: 14%;"><b> |  Choose Date Picker {{isChecked}}</b></p></mat-slide-toggle>
 </div>
 <div *ngIf="isChecked">
+    <h2>Select a Date</h2>
 <mat-form-field>
     <mat-label>Date Picker</mat-label>
     <input matInput [matDatepicker]="dp" (dateChange)="onDateSelected($event)" [formControl]="date1">
