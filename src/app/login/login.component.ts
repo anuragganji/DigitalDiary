@@ -1,9 +1,8 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '../service/authentication.service';
+import {NgIf} from '@angular/common';
+import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../service/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +13,8 @@ import { AuthenticationService } from '../service/authentication.service';
 })
 export class LoginComponent {
 
-  username ='anurag'
-  password='anu'
+  username = 'keshav'
+  password = 'kes'
   invalidLogin = false
 
   constructor(private router: Router, private authenticationService: AuthenticationService){

@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { EntryBean, EntryDataService } from '../service/data/entry-data.service';
-import { AuthenticationService } from '../service/authentication.service';
-import { Router } from '@angular/router';
-import { DatePipe, NgFor, NgIf, SlicePipe } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
+import {Component, OnInit} from '@angular/core';
+import {EntryBean, EntryDataService} from '../service/data/entry-data.service';
+import {AuthenticationService} from '../service/authentication.service';
+import {Router} from '@angular/router';
+import {DatePipe, NgFor, NgIf, SlicePipe} from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { MomentDateModule } from '@angular/material-moment-adapter';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {MatInputModule} from '@angular/material/input';
+import {UserDataService} from '../service/data/user-data.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -50,13 +49,13 @@ export const MY_FORMATS = {
     MatInputModule,
     ReactiveFormsModule
 
-    
+
   ],
   templateUrl: './history.component.html',
   styleUrl: './history.component.css'
 })
 
-// export class 
+// export class
 export class HistoryComponent implements OnInit{
 
   errorMessage: string = ''
@@ -66,13 +65,16 @@ export class HistoryComponent implements OnInit{
   date1 = new FormControl(moment());
   username: string =''
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private entryDataService: EntryDataService){}
+  constructor(private authenticationService: AuthenticationService, private router: Router, private entryDataService: EntryDataService,
+              private userDataService: UserDataService
+  ) {
+  }
 
   onDateSelected(event: any): void {
     console.log('Selected Date:', event.value);
     const selectedDate: string = event.value.format('YYYY-MM-DD');
     console.log(selectedDate)
-   
+
     this.entryDataService.executeUserRecordByDateService(this.username as string,selectedDate).subscribe(response=>this.handleSuccessfullResponseByDate(response),
     error =>this.handleErrorResponse(error,this.entryBeanDate))
 
@@ -83,7 +85,12 @@ export class HistoryComponent implements OnInit{
     this.entryDataService.executeUserRecordsService(this.username).subscribe(response=>this.handleSuccessfullResponse(response),
     error =>this.handleErrorResponse(error,this.entryBean))
   }
-  
+
+  getTodayEntry() {
+    let username: string = this.userDataService.getUsername() as string
+    this.entryDataService.executeGetTodayUserRecordService(username).subscribe(response => this.entryBeanDate = response)
+  }
+
   ngOnInit(): void {
 
     if(!this.authenticationService.isUserLoggedIn()){
@@ -92,8 +99,10 @@ export class HistoryComponent implements OnInit{
 
     this.username = sessionStorage.getItem('authenticatedUser') as string
     this.getUserRecords()
-    
- 
+
+    this.getTodayEntry()
+
+
   }
 
   handleSuccessfullResponseByDate(data: EntryBean){
@@ -117,6 +126,7 @@ export class HistoryComponent implements OnInit{
 
   handleErrorResponse(error:any, item: any){
 
+    this.entryBeanDate = undefined
     item = undefined
     this.errorMessage=error.error.message
 
