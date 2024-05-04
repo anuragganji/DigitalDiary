@@ -8,14 +8,15 @@
 </head>
 <body>
     <div class="container">
-        <div  class="card container entry elevated">         
+        <div  class="card container entry elevated">
               <mat-form-field>
                 <mat-label>Start Today's Entry</mat-label>
                 <textarea style="height: 200px;" class="data" [(ngModel)] = "text" matInput></textarea>
               </mat-form-field>
         </div>
+      <button mat-raised-button color="primary" (click)="record()">Submit</button>
     </div>
-    <button mat-raised-button color="primary" (click)="record()">Submit</button>
-    
+
+
 </body>
 </html>

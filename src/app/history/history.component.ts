@@ -9,14 +9,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 
-import * as _moment from 'moment';
-import {default as _rollupMoment} from 'moment';
 import {MatInputModule} from '@angular/material/input';
 import {UserDataService} from '../service/data/user-data.service';
+import {provideNativeDateAdapter} from "@angular/material/core";
 
-const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
   parse: {
@@ -34,7 +31,7 @@ export const MY_FORMATS = {
   selector: 'app-history',
   standalone: true,
   providers: [
-    provideMomentDateAdapter(MY_FORMATS),
+    provideNativeDateAdapter(MY_FORMATS),
   ],
   imports: [NgFor,
     NgIf,
@@ -62,7 +59,7 @@ export class HistoryComponent implements OnInit{
   isChecked: boolean = false
   entryBean: EntryBean[] = []
   entryBeanDate: EntryBean | undefined
-  date1 = new FormControl(moment());
+  date1 = new FormControl();
   username: string =''
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private entryDataService: EntryDataService,
@@ -71,16 +68,30 @@ export class HistoryComponent implements OnInit{
   }
 
   onDateSelected(event: any): void {
-    console.log('Selected Date:', event.value);
-    const selectedDate: string = event.value.format('YYYY-MM-DD');
-    console.log(selectedDate)
+    let date=new Date(event.value as string).toISOString().split('T')[0]
 
-    this.entryDataService.executeUserRecordByDateService(this.username as string,selectedDate).subscribe(response=>this.handleSuccessfullResponseByDate(response),
-    error =>this.handleErrorResponse(error,this.entryBeanDate))
+
+    // console.log({date})
+    // console.log(this.date1.value)
+    // console.log('Selected Date:', event.value);
+    // const selectedDate: string = event.value.format('YYYY-MM-DD');
+    // console.log(selectedDate)
+
+
+    // this.entryDataService.executeUserRecordByDateService(this.username,selectedDate).subscribe(response=>this.handleSuccessfullResponseByDate(response),
+    this.entryDataService.executeUserRecordByDateService(this.username,date).subscribe({
+      next: (data) => {
+        this.handleSuccessfullResponseByDate(data)
+      },
+      error: (error) => {
+        this.handleErrorResponse(error, this.entryBeanDate)
+      }
+    })
 
   }
 
   getUserRecords(){
+    this.entryDataService.logout()
     console.log(this.username)
     this.entryDataService.executeUserRecordsService(this.username).subscribe(response=>this.handleSuccessfullResponse(response),
     error =>this.handleErrorResponse(error,this.entryBean))
@@ -102,6 +113,14 @@ export class HistoryComponent implements OnInit{
 
     this.getTodayEntry()
 
+    this.entryDataService.isLoggedInObservable().subscribe({
+      next: (data) => {
+          console.log(data)
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
 
   }
 

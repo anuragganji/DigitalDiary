@@ -21,12 +21,12 @@
     display: flex;
     justify-content: flex-end;
 }
-  
+
   .elevated {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adjust the values as needed */
   }
   .over-flow{
-    margin-bottom: 100px;
+    margin-bottom: 300px;
     padding-bottom: 60px;
     padding-top: 2%;
   }

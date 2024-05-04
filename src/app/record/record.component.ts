@@ -9,12 +9,10 @@ import {UserBean, UserDataService} from '../service/data/user-data.service';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 
-import * as _moment from 'moment';
-import {default as _rollupMoment} from 'moment';
 import {DatePipe} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
-const moment = _rollupMoment || _moment;
+
 @Component({
   selector: 'app-record',
   standalone: true,
@@ -33,16 +31,18 @@ const moment = _rollupMoment || _moment;
   templateUrl: './record.component.html',
   styleUrl: './record.component.css'
 })
-export class RecordComponent implements OnInit{
+export class RecordComponent implements OnInit {
 
 
   currentDate: string;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router,
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router,
     private userDataService: UserDataService,
     private entryDataService: EntryDataService,
-              private datePipe: DatePipe,
-              private snackBar: MatSnackBar
+    private datePipe: DatePipe,
+    private snackBar: MatSnackBar
   ) {
     const today = new Date();
     this.currentDate = this.datePipe.transform(today, 'yyyy-MM-dd') || '';
@@ -50,17 +50,17 @@ export class RecordComponent implements OnInit{
 
 
   ngOnInit(): void {
-    if(!this.authenticationService.isUserLoggedIn()){
+    if (!this.authenticationService.isUserLoggedIn()) {
       this.router.navigate(['login'])
     }
-    }
+  }
 
   text: string = ''
 
-  record(){
+  record() {
     let username: string = sessionStorage.getItem('authenticatedUser') as string;
-    let userData:UserBean
-    this.userDataService.executeGetUser(username).subscribe(response=>{
+    let userData: UserBean
+    this.userDataService.executeGetUser(username).subscribe(response => {
       userData = response
       console.log(this.currentDate)
       const newEntry = new EntryBean(this.text, this.currentDate, userData)
@@ -71,11 +71,9 @@ export class RecordComponent implements OnInit{
       })
       console.log(newEntry)
       // this.entryDataService.
+      this.router.navigate(['home'])
+
     })
-
-
-
-
 
 
   }

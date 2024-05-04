@@ -1,6 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UserBean, UserDataService} from './user-data.service';
+import {BehaviorSubject} from "rxjs";
+import {AuthenticationService} from "../authentication.service";
 
 export class EntryBean{
   constructor(
@@ -14,9 +16,18 @@ export class EntryBean{
   providedIn: 'root'
 })
 export class EntryDataService {
+  isLoggedIn=new BehaviorSubject<boolean>(false)
   constructor(private http: HttpClient,
-              private userDataService: UserDataService
+              private userDataService: UserDataService,
+              private authenticationService: AuthenticationService
   ) {
+  }
+  isLoggedInObservable(){
+    return this.isLoggedIn.asObservable()
+  }
+
+  logout(){
+    this.isLoggedIn.next(!this.isLoggedIn.value)
   }
 
   // execute
@@ -27,7 +38,8 @@ export class EntryDataService {
   }
 
   executeUserRecordsService(username: any){
-    return this.http.get<EntryBean[]>(`http://localhost:8080/entry/${username}`)
+    let headers = this.authenticationService.getHeaders()
+    return this.http.get<EntryBean[]>(`http://localhost:8080/entry/${username}`,{headers: headers})
   }
 
   executeGetTodayUserRecordService(username: string) {

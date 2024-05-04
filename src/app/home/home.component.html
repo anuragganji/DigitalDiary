@@ -1,4 +1,4 @@
-<h1 *ngIf="userBean">Welcome {{userBean.username.toUpperCase()}} :;</h1>
+<h1 *ngIf="userBean">Welcome {{userBean.username.toUpperCase()}}</h1>
 
 <div style="text-align: center;">
   <h1>
@@ -9,9 +9,12 @@
 
 <div class="grid-container">
     <div class="grid-item" *ngFor="let feature of features" (click)="switchPage(feature)">
-      <div  class="card elevated">
-        <!-- Your card content here -->
-        {{ feature.name }}
+      <div class="card elevated">
+        <div class="content">
+          <mat-icon class="icon" aria-hidden="false" aria-label="Example home icon" fontIcon={{feature.icon}}></mat-icon>
+          <span class="name">{{ feature.name }}</span>
+        </div>
       </div>
+
     </div>
   </div>

@@ -13,21 +13,35 @@ import {AuthenticationService} from '../service/authentication.service';
 })
 export class LoginComponent {
 
-  username = 'keshav'
-  password = 'kes'
+  username = 'anurag'
+  password = 'anu'
   invalidLogin = false
 
   constructor(private router: Router, private authenticationService: AuthenticationService){
 
   }
 
-  login(){
-    if(this.authenticationService.authenticate(this.username,this.password)){
-      this.router.navigate(['home'])
-      this.invalidLogin=false
-    } else{
-      this.invalidLogin = true
-    }
-    console.log(this.username)
+  // login(){
+  //   if(this.authenticationService.authenticate(this.username,this.password)){
+  //     this.router.navigate(['home'])
+  //     this.invalidLogin=false
+  //   } else{
+  //     this.invalidLogin = true
+  //   }
+  //   console.log(this.username)
+  // }
+  handleJWTLogin(){
+    this.authenticationService.executeJWTAuthenticateService(this.username,this.password).subscribe(
+      data => {
+        console.log(data)
+        this.router.navigate(['home'])
+        this.invalidLogin=false
+      },
+      error => {
+        console.log(error)
+        this.invalidLogin=true
+      }
+    )
+
   }
 }

@@ -1,3 +1,14 @@
 .menu-item{
     margin-right: 2%;;
 }
+.home{
+  cursor: pointer;
+  display: flex;
+}
+.home-out{
+display: flex;
+
+}
+.icon{
+  margin-right: 5px;
+}
