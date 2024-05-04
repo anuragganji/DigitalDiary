@@ -1,0 +1,13 @@
+.half-width {
+  width: 40%;
+}
+.full-width {
+  width: 100%;
+}
+.long-width {
+  width: 60%;
+}
+
+.element{
+  margin-right: 20px;
+}

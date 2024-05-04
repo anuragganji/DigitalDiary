@@ -1,0 +1,54 @@
+<h2 mat-dialog-title xmlns="http://www.w3.org/1999/html">Register</h2>
+
+<form [formGroup]="userForm" (ngSubmit)="register()">
+<mat-dialog-content>
+
+  <p>Enter your details</p>
+
+
+    <div class="example-full-width"> <!-- Wrap the first mat-form-field in a div -->
+      <mat-form-field class="element">
+        <mat-label>First Name</mat-label>
+        <input type="text" placeholder="First Name" aria-label="FirstName" matInput formControlName="firstName">
+        <mat-error *ngIf="userForm.get('firstName')?.invalid">First Name is required</mat-error>
+      </mat-form-field>
+      <!-- Wrap the second mat-form-field in a div -->
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input type="text" placeholder="Last Name" aria-label="LastName" matInput formControlName="lastName">
+        <mat-error *ngIf="userForm.get('lastName')?.invalid">Last Name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="long-width">
+        <mat-label>Username</mat-label>
+        <input type="text" placeholder="Username" aria-label="Username" matInput formControlName="username">
+        <mat-error *ngIf="userForm.get('username')?.invalid">Username is not available</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="long-width">
+        <mat-label>Password</mat-label>
+        <input type="password" placeholder="Password" aria-label="Password" matInput formControlName="password">
+        <mat-error *ngIf="userForm.get('password')?.invalid">Password is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" placeholder="Email" aria-label="Email" matInput formControlName="email">
+        <mat-error *ngIf="userForm.get('email')?.invalid">Email is not valid</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">No Thanks</button>
+  <button type="submit" [disabled]="userForm.invalid" mat-raised-button color="primary">Register</button>
+
+</mat-dialog-actions>
+</form>
+

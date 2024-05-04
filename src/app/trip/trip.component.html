@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Online Diary</title>
+</head>
+<body>
+
+<div *ngIf="postBean">
+  <div class="card-container">
+    <div class="card container entry elevated"
+         *ngFor="let post of postBean | slice: (paginator.pageIndex * paginator.pageSize):((paginator.pageIndex + 1) * paginator.pageSize)">
+      <!-- Your card content here -->
+      <p>{{ post.content }}</p>
+      <div class="date-wrapper">
+        <div>
+          <nav class="navbar navbar-expand-md ">
+            <ul class="navbar-nav">
+              <li><p>By {{ post.userId.firstName }} {{ post.userId.lastName }}</p></li>
+            </ul>
+            <ul class="navbar-nav navbar-collapse justify-content-end">
+              <li><p class="para-right">{{ post.userId.email }} | {{ post.postDate | date: 'yyyy-MM-dd | HH:mm:ss'}}</p></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="over-flow" >
+    <mat-paginator [length]="postBean.length"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                   aria-label="Select page"
+                   #paginator>
+    </mat-paginator>
+  </div>
+</div>
+
+
+<div class="post container">
+  <div class="card container entry max-width elevated">
+    <mat-form-field>
+      <mat-label>Post Entry</mat-label>
+      <textarea style="height: 100px;" class="data" [(ngModel)]="text" matInput></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" style="width: fit-content" (click)="post()">Submit</button>
+  </div>
+
+</div>
+
+</body>
+</html>

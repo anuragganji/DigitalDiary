@@ -1,0 +1,19 @@
+<br>
+<button (click)="createTrip()" class="alert alert-danger" mat-raised-button color="primary">
+  <mat-icon class="icon" aria-hidden="false" aria-label="Example home icon" fontIcon="create_new_folder"></mat-icon>
+  Create Group
+</button>
+<br>
+<br>
+
+<div class="grid-container">
+  <div class="grid-item" *ngFor="let trip of trips" (click)="switchPage(trip.tripId)">
+    <div class="card elevated">
+      <div class="content">
+        <mat-icon class="icon" aria-hidden="false" aria-label="Example home icon" fontIcon="folder_shared"></mat-icon>
+        <span class="name">{{ trip.tripName }}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

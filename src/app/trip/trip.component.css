@@ -1,0 +1,45 @@
+.container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+
+.card {
+  /* Your existing card styles */
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.entry{
+
+  max-width: 800px;
+  margin-top: 5%;
+  background-color: #e6e3e3;
+  padding-bottom: 0%;
+}
+.elevated {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adjust the values as needed */
+}
+
+
+button{
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.post{
+  position: fixed;
+  bottom: 0;
+}
+
+.max-width{
+max-width: 850px;
+}
+
+.over-flow{
+  margin-right: 12%;
+  padding-bottom: 400px;
+  padding-top: 2%;
+}
