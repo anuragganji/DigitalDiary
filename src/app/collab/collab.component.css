@@ -11,10 +11,30 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adjust the values as needed */
 }
 .icon{
-  margin-right: 8px;
+  margin-right: 15px;
 }
 .name {
-  font-size: 18px;
+  font-size: 20px;
+  height: fit-content;
+  width: fit-content;
+}
+
+button{
+  width: fit-content;
+  height: fit-content;
+}
+
+.big-icon{
+  font-size: 40px;
+  height: fit-content;
+  width: fit-content;
+}
+.medium-icon{
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 35px;
+  height: fit-content;
+  width: fit-content;
 }
 
 

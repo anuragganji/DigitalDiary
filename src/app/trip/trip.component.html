@@ -20,14 +20,16 @@
               <li><p>By {{ post.userId.firstName }} {{ post.userId.lastName }}</p></li>
             </ul>
             <ul class="navbar-nav navbar-collapse justify-content-end">
-              <li><p class="para-right">{{ post.userId.email }} | {{ post.postDate | date: 'yyyy-MM-dd | HH:mm:ss'}}</p></li>
+              <li><p class="para-right">{{ post.userId.email }}
+                | {{ post.postDate | date: 'yyyy-MM-dd | HH:mm:ss' }}</p></li>
             </ul>
           </nav>
         </div>
       </div>
     </div>
   </div>
-  <div class="over-flow" >
+  <div></div>
+  <div class="over-flow">
     <mat-paginator [length]="postBean.length"
                    [pageSize]="10"
                    [pageSizeOptions]="[1, 5, 10, 25, 100]"
@@ -37,14 +39,19 @@
   </div>
 </div>
 
+<button class="edit" (click)="changeFlag()" mat-fab color="primary">
+  <mat-icon  class="icon big-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+</button>
 
-<div class="post container">
+
+<div *ngIf="editFlag" class="post container">
   <div class="card container entry max-width elevated">
     <mat-form-field>
       <mat-label>Post Entry</mat-label>
       <textarea style="height: 100px;" class="data" [(ngModel)]="text" matInput></textarea>
     </mat-form-field>
-    <button mat-raised-button color="primary" style="width: fit-content" (click)="post()">Submit</button>
+
+    <button class="button-form" mat-raised-button color="primary" style="width: fit-content" (click)="post()">Submit</button>
   </div>
 
 </div>

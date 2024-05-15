@@ -1,1 +1,48 @@
-<p>create-trip works!</p>
+<h2 mat-dialog-title>Create User</h2>
+<form [formGroup]="userForm">
+  <mat-dialog-content>
+
+    <p>Add Users</p>
+    <mat-form-field class="element">
+      <mat-label>Title</mat-label>
+      <input type="text" placeholder="Title" aria-label="Title" matInput formControlName="title">
+    </mat-form-field>
+    <mat-form-field class="example-chip-list">
+      <mat-label>Selected users</mat-label>
+
+      <mat-chip-grid #chipGrid aria-label="User selection">
+        @for (user of users; track user) {
+          <mat-chip-row (removed)="remove(user)">
+            {{user}}
+            <button matChipRemove [attr.aria-label]="'remove ' + user">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input class="text-box" placeholder="Search User..." #userInput [formControl]="userControl"
+             [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="add($event)"/>
+
+
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        @for (user of filteredUsers | async; track user) {
+          <mat-option [value]="user">{{user}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="cancel()">
+      Cancel
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <button type="submit" (click)="create()" [disabled]="userForm.invalid" mat-raised-button color="primary">Create</button>
+
+  </mat-dialog-actions>
+</form>
+

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {MatButton} from "@angular/material/button";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatButton, MatButtonModule} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {DatePipe, NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {MatPaginator} from "@angular/material/paginator";
 import {PostBean, PostDataService} from "../service/data/post-data.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-trip',
@@ -21,7 +22,9 @@ import {PostBean, PostDataService} from "../service/data/post-data.service";
     MatPaginator,
     NgForOf,
     NgIf,
-    SlicePipe
+    SlicePipe,
+    MatIcon,
+    MatButtonModule
   ],
   templateUrl: './trip.component.html',
   styleUrl: './trip.component.css'
@@ -29,7 +32,10 @@ import {PostBean, PostDataService} from "../service/data/post-data.service";
 export class TripComponent implements OnInit{
   postBean: PostBean[] = []
 
+  editFlag: boolean = false;
+
   text: string = ''
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   tripId: number = 0;
 
@@ -53,7 +59,8 @@ export class TripComponent implements OnInit{
   // }
 
   constructor(private route: ActivatedRoute,
-              private postDataService: PostDataService) { }
+              private postDataService: PostDataService,
+              ) { }
 
   ngOnInit(): void {
     // Retrieve the variable from the query parameters
@@ -63,7 +70,7 @@ export class TripComponent implements OnInit{
       console.log("This is Trip ID: " + this.tripId)
 
       // Retrieve posts
-      this.postDataService.executeGetAllTrips(this.tripId).subscribe(
+      this.postDataService.executeGetAllPosts(this.tripId).subscribe(
         response => {
           this.postBean = response
           console.log(response)
@@ -92,10 +99,15 @@ export class TripComponent implements OnInit{
         console.log(error)
       }
     )
+    this.editFlag = false;
 
-    console.log('Posting trip')
+    console.log('Posting post')
 
     //retrieve posts again
+  }
+
+  changeFlag(){
+    this.editFlag = !this.editFlag;
   }
 
 }

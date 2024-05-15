@@ -5,8 +5,17 @@ import {API_URL} from "../../app.constants";
 
 export interface TripBean {
   tripId: number,
-  userId: UserBean,
   tripName: string,
+}
+export interface TripRelationBean {
+  relationId: number,
+  tripId: TripBean,
+  userId: UserBean
+}
+
+export interface CreateTripUsersBean{
+  tripName: string,
+  usernames: string[]
 }
 
 @Injectable({
@@ -19,6 +28,10 @@ export class CollabDataService {
   ) { }
 
   executeGetAllTrips(username: string){
-    return this.http.get<TripBean[]>(`${API_URL}/trip/all/${username}`)
+    return this.http.get<TripRelationBean[]>(`${API_URL}/trip/all/${username}`)
+  }
+
+  executeCreateTrip(tripUsers: CreateTripUsersBean){
+    return this.http.post(`${API_URL}/trip/create`, tripUsers)
   }
 }

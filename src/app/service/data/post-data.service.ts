@@ -27,7 +27,7 @@ export class PostDataService {
   ) {
   }
 
-  executeGetAllTrips(tripId: number) {
+  executeGetAllPosts(tripId: number) {
     return this.http.get<PostBean[]>(`${API_URL}/post/all/${tripId}`)
   }
 
